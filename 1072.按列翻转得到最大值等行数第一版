@@ -1,0 +1,43 @@
+class Solution {
+    public int maxEqualRowsAfterFlips(int[][] matrix) {
+        int l = matrix[0].length;
+        int h = matrix.length;
+
+        String[] s = new String[h];
+
+        for(int i = 0; i<h;i++){
+            StringBuilder ss =new StringBuilder();
+            if(matrix[i][0] == 1){
+                for(int j = 0 ;j <l; j++){
+                    matrix[i][j] = (matrix[i][j] + 1)%2;
+                    ss.append(matrix[i][j]+"");
+                }
+            }else{
+                for(int j = 0 ;j <l; j++){
+                    ss.append(matrix[i][j]+"");
+                }
+            }
+
+            s[i] = ss.toString();
+            
+        }
+
+        int max = 0;
+        int num = 0;
+
+        for(int i = 0; i<h;i++){
+            for(int j = 0 ;j <h; j++){
+                if(s[i].equals(s[j])){
+                    num++;
+                }
+            }
+            if(max < num){
+                max = num;
+            }
+            num = 0;
+        }
+
+        return max;
+
+    }
+}
