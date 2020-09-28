@@ -1,0 +1,54 @@
+class Solution {
+
+    List<String> re = new ArrayList<String>();
+
+    public List<String> letterCombinations(String digits) {
+        
+        if(digits.length() <=0)return re;
+
+        String str = "";
+
+        comb(digits,0,str);
+
+        return re;
+
+    }
+
+    public void comb(String digits,int index,String str){
+
+        if(index == digits.length()){
+            re.add(str);
+            return ;
+        }else{
+            switch(digits.charAt(index)-'2'){
+                case 5:
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+97));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+98));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+99));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+100));
+                    break;
+                case 6:
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+98));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+99));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+100));
+                    break;
+                case 7:
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+98));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+99));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+100));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+101));
+                    break;
+                default:
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+97));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+98));
+                    comb(digits,index+1,str+(char)((digits.charAt(index)-'2')*3+99));
+                    break;              
+
+            }
+        }
+
+        
+
+    }
+
+}
