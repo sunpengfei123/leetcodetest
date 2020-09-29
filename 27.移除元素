@@ -1,0 +1,25 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+
+        Arrays.sort(nums);
+
+        int f = 0;
+        int s = 0;
+
+        while(f<nums.length){
+            if(nums[f] == val){
+                for(s=f+1; s<nums.length; s++){
+                    if(nums[s] != val){
+                        nums[f] = nums[s];
+                        f++;
+                    }
+                }
+                break;
+            }
+            f++;
+        }
+
+        return f;
+
+    }
+}
