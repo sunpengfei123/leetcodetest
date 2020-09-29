@@ -1,0 +1,27 @@
+class Solution {
+    public int strStr(String haystack, String needle) {
+
+        int f = 0;
+        int s = 0;
+        if(needle.length() == 0)return 0;
+        while(f<haystack.length()){
+            if(haystack.charAt(f) == needle.charAt(0)){
+                for(s=0; s<needle.length();s++){
+                    if(f >= haystack.length())return -1;
+                    if(haystack.charAt(f) != needle.charAt(s)){
+                        f = f-s+1;
+                        break;
+                    }
+                    if(s == needle.length() - 1){
+                        return f-needle.length()+1;
+                    }
+                    f++;
+                }
+                continue;
+            }
+            f++;
+        }
+        return -1;
+
+    }
+}
