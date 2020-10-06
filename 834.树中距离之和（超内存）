@@ -1,0 +1,54 @@
+class Solution {
+    public int[] sumOfDistancesInTree(int N, int[][] edges) {
+
+        int[][] dis = new int[N][N];
+
+        for(int i = 0; i<edges.length;i++){
+            dis[edges[i][0]][edges[i][1]] = 1;
+            dis[edges[i][1]][edges[i][0]] = 1;
+        }
+
+
+
+
+        boolean b = true;
+
+        while(b){
+            b=false;
+            for(int j = 0; j<N; j++){
+                for(int k = 0; k<N; k++){
+                    if(dis[j][k] != 0){
+                        for(int m = 0; m<N; m++){
+                            if(dis[k][m] != 0 && m!=j){
+                                if( dis[j][m] == 0){
+                                    dis[j][m] = dis[j][k] + dis[k][m];
+                                    b=true;
+                                }else{
+                                    if(dis[j][m] > dis[j][k] + dis[k][m]){
+                                        b=true;
+                                        dis[j][m] = dis[j][k] + dis[k][m];
+                                    }
+                                    
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        int[] re = new int[N];
+
+        for(int ii = 0; ii<N; ii++){
+            for(int j = 0; j<N; j++){
+                re[ii] += dis[ii][j];
+            }
+        }
+
+        return re;
+
+    }
+}
