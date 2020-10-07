@@ -1,0 +1,36 @@
+class Solution {
+
+    int[] re = {-1,-1};
+
+    public int[] searchRange(int[] nums, int target) {
+
+        if(nums.length == 0)return re;
+
+        ff(nums,target,0,nums.length-1);
+        return re;
+
+    }
+
+
+    public void ff(int[] nums, int target, int l, int r){
+        int m = (l+r+1)/2;
+        if(l>r)return;
+        if(nums[m] == target){
+            if(re[0] == -1){
+                re[0] = m;
+                re[1] = m;
+            }else{
+                re[0] = re[0]<m?re[0]:m;
+                re[1] = re[1]>m?re[1]:m;
+            }
+
+            ff(nums,target,l,m-1);
+            ff(nums,target,m+1,r);
+            
+        }else if(nums[m] > target){
+            ff(nums,target,l,m-1);
+        }else{
+            ff(nums,target,m+1,r);
+        }
+    }
+}
