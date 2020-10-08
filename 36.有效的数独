@@ -1,0 +1,41 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+
+        HashMap<String,HashMap<String,Character>> al = new HashMap<String,HashMap<String,Character>>(); 
+
+        for(int i = 0; i<9;i++){
+            for(int j = 0; j<9;j++){
+                HashMap<String,Character> m = new HashMap<String,Character>();
+                al.put(i+""+j,m);
+            }
+        }
+
+        for(int i = 0; i<9;i++){
+            for(int j = 0; j<9;j++){
+                if(al.get(i+""+j).containsValue(board[i][j]) && board[i][j]!='.')return false;
+                for(int k = 0; k<9; k++){
+                    if(k!=j){
+                        al.get(i+""+k).put(i+""+j,board[i][j]);
+                    }
+                }
+                for(int k = 0; k<9; k++){
+                    if(k!=i){
+                        al.get(k+""+j).put(i+""+j,board[i][j]);
+                    }
+                }
+
+                for(int k = (i/3)*3;k<(i/3)*3+3;k++){
+                    for(int l = (j/3)*3;l<(j/3)*3+3;l++){
+                        if(k!=i || l!=j){
+                            al.get(k+""+l).put(i+""+j,board[i][j]);
+                        }
+                    }
+                }
+
+            }
+        }      
+
+        return true;
+
+    }
+}
