@@ -1,0 +1,37 @@
+class Solution {
+    int in = 0;
+    List<List<Integer>> re = new ArrayList<List<Integer>>();
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+
+        List<Integer> l = new ArrayList<Integer>();
+        ff(candidates,target,l,0);
+        return re;
+
+    }
+
+    public void ff(int[] candidates, int target, List<Integer> l, int index){
+
+        
+        
+        if(target == 0 ){
+            re.add(new ArrayList<Integer>(l));
+            return;
+        }
+
+        if(index>=candidates.length || target < 0) return;
+
+        int num = target/candidates[index];
+        for(int i = 0; i<=num; i++){
+            for(int j = 0; j<i; j++){
+                l.add(candidates[index]);
+            }
+            ff(candidates,target-i*candidates[index],l,index+1);
+
+            for(int j = 0; j<i; j++){
+                l.remove(l.size()-1);
+            }
+        }
+
+        return;
+    }
+}
