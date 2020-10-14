@@ -1,0 +1,43 @@
+class Solution {
+
+    List<List<Integer>> re = new ArrayList<List<Integer>>();
+    List<Integer> l = new ArrayList<Integer>();
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+
+        Arrays.sort(candidates);
+
+        ff(candidates,target,0);
+        return re;
+    }
+
+    public void ff(int[] candidates, int target, int index){
+
+        int second ;
+        int num = 1;
+        if(target == 0){
+            re.add(new ArrayList<Integer>(l));
+        }
+        if(index >= candidates.length || candidates[index] > target)return;
+        
+        for(second = index+1; second<candidates.length; second++){
+            if(candidates[second] == candidates[index]){
+                num++;
+            }else{
+                break;
+            }
+        }
+        for(int i = 0 ; i<=num; i++){
+            for(int j = 1; j<=i; j++){
+                l.add(candidates[index]);
+            }
+
+            ff(candidates,target-i*candidates[index],second);
+
+            for(int j = 1; j<=i; j++){
+                int ll = l.size();
+                l.remove(ll-1);
+            }
+        }
+    }
+}
