@@ -1,0 +1,34 @@
+class Solution {
+    List<List<Integer>> re = new ArrayList<List<Integer>>();
+
+    List<Integer> l = new ArrayList<Integer>();
+
+    public List<List<Integer>> permute(int[] nums) {
+        HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+        for(int i = 0; i<nums.length; i++){
+            hm.put(i,nums[i]);
+        }
+        ff(hm,nums.length);
+        return re;
+
+    }
+
+    public void ff( HashMap<Integer,Integer> hm , int index){
+
+        if(index == 0){
+            List<Integer> ll = new ArrayList<Integer>(l);
+            re.add(ll);
+            return;
+
+        }
+
+        for(Integer i:hm.keySet()){
+            l.add(hm.get(i));
+            HashMap<Integer,Integer> hmm = new HashMap<Integer,Integer>(hm);
+            hmm.remove(i);
+            ff(hmm,index-1);
+            l.remove(l.size()-1);
+        }
+
+    }
+}
