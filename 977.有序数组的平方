@@ -1,0 +1,38 @@
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        int[] re = new int[A.length];
+        if(A.length == 0)return re;
+        int zheng = 0;
+        int fu = 0;
+        while(zheng<A.length && A[zheng] < 0){
+            zheng++;
+        }
+        fu = zheng-1;
+        int i = 0;
+        while((fu>=0||zheng<A.length)){
+            if(fu<0){
+                re[i] = A[zheng]*A[zheng];
+                i++;
+                zheng++;  
+                continue;            
+            }
+            if(zheng>=A.length){
+                re[i] = A[fu]*A[fu];
+                i++;
+                fu--; 
+                continue;
+            }
+            if(A[fu]*A[fu] >= A[zheng]*A[zheng]){
+                re[i] = A[zheng]*A[zheng];
+                i++;
+                zheng++;
+            }else{
+                re[i] = A[fu]*A[fu];
+                i++;
+                fu--; 
+            }
+        }
+
+        return re;
+    }
+}
