@@ -1,0 +1,43 @@
+class Solution {
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+
+        if(matrix.length == 0)return false;
+        if(matrix[0].length == 0)return false;
+        if(matrix[0][0] > target) return false;
+        if(matrix[matrix.length-1][matrix[0].length-1] < target)return false;
+
+        return ff(matrix,target,0,matrix[0].length-1,0,matrix.length-1);
+
+    }
+
+    public boolean ff(int[][] matrix, int target, int zl,int yl, int sh, int xh){
+        int i = 1;
+        if(matrix[sh][zl] == target)return true;
+        if(matrix[sh][zl] > target) return false;
+        boolean re = false;
+
+        while(zl+i <= yl && sh+i <= xh){
+            if(matrix[sh+i][zl+i] == target)return true;
+            if(matrix[sh+i][zl+i] > target){
+                re = ff(matrix,target,zl,zl+i-1,sh+i,xh) || ff(matrix,target,zl+i,yl,sh,sh+i-1);
+                return re;
+            }else{
+                i++;
+            }
+        }
+
+        if(zl+i > yl && sh+i > xh){
+            return false;
+        }
+        if(zl+i > yl){
+            re = ff(matrix,target,zl,yl,sh+i,xh);
+            return re;
+        }
+        if(sh+i > xh){
+            re = ff(matrix,target,zl+i,yl,sh,xh);
+        }
+
+        return re;
+    }
+    
+}
