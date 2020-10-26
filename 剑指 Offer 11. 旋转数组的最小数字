@@ -1,0 +1,19 @@
+class Solution {
+    public int minArray(int[] numbers) {
+
+        if(numbers.length == 0) return -1;
+
+        int t = Integer.MIN_VALUE;
+
+        for(int i = 0; i<numbers.length; i++){
+            if(t < numbers[i]){
+                t = numbers[i];
+            }else if(t > numbers[i]){
+                return numbers[i];
+            }
+        }
+
+        return numbers[0];
+
+    }
+}
