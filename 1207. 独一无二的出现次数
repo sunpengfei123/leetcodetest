@@ -1,0 +1,27 @@
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+        HashMap<Integer,Integer> hm2 = new HashMap<Integer,Integer>();
+
+        boolean re = true;
+
+        for(int i = 0; i<arr.length; i++){
+            if(!hm.containsKey(arr[i])){
+                hm.put(arr[i],1);
+            }else{
+                hm.put(arr[i],hm.get(arr[i])+1);
+            }
+        }
+
+        for(Integer i: hm.keySet()){
+            if(!hm2.containsKey(hm.get(i))){
+                hm2.put(hm.get(i),1);
+            }else{
+                hm2.put(hm.get(i),hm2.get(hm.get(i))+1);
+                re = false;
+            }
+        }
+
+        return re;
+    }
+}
