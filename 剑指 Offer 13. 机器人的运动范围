@@ -1,0 +1,32 @@
+class Solution {
+
+    int num = 0;
+
+
+    public int movingCount(int m, int n, int k) {
+        int[][] a = new int[m][n];
+        compute(m, n, k, 0, 0,a);   
+        return num;
+    }
+
+    public void compute(int m, int n, int k, int i, int j, int[][] a){
+        if(ff(i)+ff(j) <= k && i<m && j<n && a[i][j] == 0){
+            num++;
+            a[i][j] = 1;
+        }
+
+        else return;
+        compute(m,n,k,i+1,j,a);
+        compute(m,n,k,i,j+1,a);
+        return;
+    }
+
+    public int ff(int t){
+        int re = 0;
+        while(t>0){
+            re += t%10;
+            t = t/10; 
+        }
+        return re;
+    }
+}
