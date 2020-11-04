@@ -1,0 +1,73 @@
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+
+        int z = -1;
+        int y = -1;
+        List<Integer> l =new ArrayList<Integer>();
+
+        int[][] re;
+
+        if(intervals.length == 0 || intervals[0].length == 0){
+            re = new int[1][2];
+            re[0][0] = newInterval[0];
+            re[0][1] = newInterval[1];
+            return re;
+        }
+
+        int m = 0;
+
+        for(int i = 0; i<intervals.length; i++){
+            for(int j = 0; j<2; j++){
+                
+                if(intervals[i][j] >= newInterval[0] && z == -1){
+                    z = m;
+                }
+
+                if(intervals[i][j] > newInterval[1] && y == -1){
+                    y = m;
+                }
+
+                if(z == -1){
+                    l.add(intervals[i][j]);
+                }else{
+                    if(z == m){
+                        if(j == 0){
+                            l.add(newInterval[0]);
+                        }
+                    }
+
+                    if(y != -1){
+                        if(y == m){
+                            if(j == 0){
+                                l.add(newInterval[1]);
+                            }
+                        }
+                        l.add(intervals[i][j]);
+                    }
+                }
+                m++;
+            }
+        }
+
+        if(z == -1){
+            l.add(newInterval[0]);
+            l.add(newInterval[1]);
+        }else{
+            if(y == -1){
+                l.add(newInterval[1]);
+            }
+        }
+
+        m = 0;
+        re = new int[l.size()/2][2];
+        for(int i = 0; i<re.length; i++){
+            for(int j = 0; j<2; j++){
+                re[i][j] = l.get(m);
+                m++;
+            }
+        }
+
+        return re;
+
+    }
+}
