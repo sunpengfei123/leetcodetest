@@ -1,0 +1,31 @@
+class Solution {
+    public int[] sortByBits(int[] arr) {
+
+        int[] bit = new int[10001];
+        for(int i = 0; i<arr.length; i++){
+            bit[arr[i]] = ff(arr[i]);
+        }
+
+        for(int i = 0; i< arr.length; i++){
+            for(int j = arr.length -1; j>i; j--){
+                if(bit[arr[j]] < bit[arr[j-1]]  || (bit[arr[j]]  == bit[arr[j-1]]  && arr[j] < arr[j-1])){
+                    int t = arr[j];
+                    arr[j] = arr[j-1];
+                    arr[j-1] = t;
+                }
+            }
+        }
+
+        return arr;
+    }
+
+    public int ff(int a){
+        int re = 0;
+        while(a > 0){
+            re+=a%2;
+            a = a/2;
+        }
+        return re;
+    }
+
+}
