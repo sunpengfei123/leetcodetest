@@ -1,0 +1,22 @@
+class Solution {
+    public int[] sortArrayByParityII(int[] A) {
+
+        int[] re = new int[A.length];
+
+        int ji = 1;
+        int ou = 0;
+
+        for(int i = 0; i<A.length; i++){
+            if(A[i]%2 == 0){
+                re[ou] = A[i];
+                ou+=2;
+            }else{
+                re[ji] = A[i];
+                ji+=2;
+            }
+        }
+
+        return re;
+
+    }
+}
