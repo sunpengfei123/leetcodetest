@@ -1,0 +1,56 @@
+class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+
+        HashMap<Integer,List<Integer>> hm = new HashMap<Integer,List<Integer>>();
+        List<Integer> shu = new ArrayList<Integer>();
+
+        int[][] re = new int[people.length][2];
+
+        if(people.length == 0 || people[0].length == 0) return people;
+
+        for(int i = 0 ;i<people.length; i++){
+            for(int j = 0;j<people.length-i-1;j++){
+                if(people[j][0] > people[j+1][0] || (people[j][0] == people[j+1][0] && people[j][1] > people[j+1][1])){
+                    int[] t = people[j];
+                    people[j] = people[j+1];
+                    people[j+1] = t;
+                }
+            }
+        }
+
+        int[] zhan = new int[people.length];
+
+        int chong = 0;
+
+        for(int i = 0 ;i<people.length; i++){
+            if(i>0 && people[i][0] == people[i-1][0]){
+                chong++;
+            }else{
+                chong = 0;
+            }
+
+            int x = ff(people[i][1] - chong,zhan);
+            re[x] = people[i];
+            zhan[x] = 1;
+
+        }
+  
+        
+
+    
+        return re;
+
+    }
+
+    public int ff(int n,int[] zhan){
+        int m = 0;
+        for(int i = 0; i<zhan.length; i++){
+            if(zhan[i] == 0){
+                m++;
+            }
+            if(m == n+1)return i;
+        }
+
+        return -1;
+    }
+}
