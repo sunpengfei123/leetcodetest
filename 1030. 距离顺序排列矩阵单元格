@@ -1,0 +1,27 @@
+class Solution {
+    public int[][] allCellsDistOrder(int R, int C, int r0, int c0) {
+        int[][] re = new int[R*C][2];
+        int m = 0;
+        for(int i = 0; i< R; i++){
+            for(int j = 0 ;j <C; j++){
+                re[m][0] = i;
+                re[m][1] = j;
+                m++;
+            }
+        }
+
+
+
+        for(int i = 0; i< R*C; i++){
+            for(int j = 0;j<R*C-i-1;j++){
+                if(Math.abs(re[j][0]-r0)+Math.abs(re[j][1]-c0) > Math.abs(re[j+1][0]-r0)+Math.abs(re[j+1][1]-c0)){
+                    int[] t = re[j];
+                    re[j] = re[j+1];
+                    re[j+1] = t;
+                }
+            }
+        }
+
+        return re;
+    }
+}
