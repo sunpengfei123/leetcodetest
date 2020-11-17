@@ -1,0 +1,39 @@
+class Solution {
+    public int[][] allCellsDistOrder(int R, int C, int r0, int c0) {
+        int[][] re = new int[R*C][2];
+
+        HashMap<Integer,List<int[]>> hm = new HashMap<Integer,List<int[]>>();
+        
+        for(int i= 0; i<R; i++){
+            for(int j = 0; j<C; j++){
+                int l = Math.abs(i-r0)+Math.abs(j-c0);
+                if(!hm.containsKey(l)){
+                    List<int[]> ll = new ArrayList<int[]>();
+                    ll.add(new int[]{i,j});
+                    hm.put(l,ll);
+                }else{
+                    hm.get(l).add(new int[]{i,j});
+                }
+            }
+        }
+
+        List<Integer> l = new ArrayList<Integer>(hm.keySet());
+        int[] ll = new int[l.size()];
+        for(int i = 0; i<l.size(); i++){
+            ll[i] = l.get(i);
+        }
+
+        Arrays.sort(ll);
+        int m = 0;
+        for(int i = 0; i<ll.length; i++){
+            List<int[]> t = hm.get(ll[i]);
+            for(int[] j:t){
+                re[m] = j;
+                m++;
+            }
+
+        }
+
+        return re;
+    }
+}
