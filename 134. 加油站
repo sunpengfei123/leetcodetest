@@ -1,0 +1,30 @@
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int re = -1;
+        for(int i = 0; i<gas.length; i++){
+            if(gas[i] >= cost[i]){
+                re = ff(i,i,gas,cost,0);
+            }
+            
+            if(re != -1){
+                return re;
+            }
+        }
+
+        return re;
+    }
+
+
+    public int ff(int first,int index, int[] gas,int[] cost,int left){
+        int t = (index+1)%gas.length;
+        if(left+gas[index] >= cost[index]){
+            if(t == first){
+                return first;
+            }else{
+                return ff(first,t,gas,cost,left+gas[index]-cost[index]);
+            }
+        }else{
+            return -1;
+        }
+    }
+}
