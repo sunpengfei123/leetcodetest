@@ -1,0 +1,35 @@
+class Solution {
+    public String sortString(String s) {
+        StringBuilder sb = new StringBuilder();
+
+        char[] ch = s.toCharArray();
+        Arrays.sort(ch);
+        int[] ji = new int[ch.length];
+        List<Character> l = new ArrayList<Character>();
+        for(int i = 0; i<ch.length; i++){
+            l.add(ch[i]);
+        }
+        int num = ch.length;
+        while(num>0){
+            char a = 'A';
+            for(int i = 0; i<ch.length; i++){
+                if(a != ch[i] && ji[i] == 0){
+                    sb.append(ch[i]);
+                    a = ch[i];
+                    ji[i] = 1;
+                    num--;
+                }
+            }
+            a = 'A';
+            for(int i = ch.length-1; i>=0; i--){
+               if(a != ch[i] && ji[i] == 0){
+                   sb.append(ch[i]);
+                   a = ch[i];
+                   ji[i] = 1;
+                   num--;
+               }
+            }
+        }
+        return sb.toString();
+    }
+}
