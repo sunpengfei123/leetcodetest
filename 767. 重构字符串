@@ -1,0 +1,39 @@
+class Solution {
+    public String reorganizeString(String S) {
+        int m = S.length();
+        int[] t = new int[26];
+        int max = 0;
+        for(int j = 0;j<m; j++){
+            t[S.charAt(j)-'a']++;
+            if(max<t[S.charAt(j)-'a']){
+                max = t[S.charAt(j)-'a'];
+            }
+        }
+        if(max > (m+1)/2){
+            return "";
+        }
+
+        char[] re = new char[m];
+
+        int ji = 1;
+        int ou = 0;
+
+
+        for(int i = 0; i<26; i++){
+            char a = (char)('a'+i);
+            while(t[i] > 0 && ji < m && t[i] <= m/2){
+                re[ji] = a;
+                ji+=2;
+                t[i]--;
+            }
+            while(t[i] > 0){
+                re[ou] = a;
+                t[i]--;
+                ou+=2;
+            }
+        }
+
+        return new String(re);
+
+    }
+}
