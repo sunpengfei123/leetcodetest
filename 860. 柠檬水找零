@@ -1,0 +1,43 @@
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        int[] qian = {0,0,0};
+
+        for(int i = 0; i<bills.length; i++){
+            if(bills[i] == 5){
+                qian[0]++;
+                continue;
+            }
+            if(bills[i] == 10){
+                if(qian[0] < 1){
+                    return false;
+                }else{
+                    qian[0]--;
+                    qian[1]++;
+                }
+                continue;
+            }
+            if(bills[i] == 20){
+                if(qian[0] < 1){
+                    return false;
+                }
+                if(qian[1] > 0){
+                    qian[0]--;
+                    qian[1]--;
+                    qian[2]++;
+                    continue;
+                }
+
+                if(qian[0] < 3){
+                    return false;
+                }else{
+                    qian[0] = qian[0] - 3;
+                    qian[2]++;
+                }
+
+            }
+        }
+
+        return true;
+
+    }
+}
