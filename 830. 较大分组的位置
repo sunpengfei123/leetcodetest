@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<Integer>> largeGroupPositions(String s) {
+        List<List<Integer>> re = new ArrayList<List<Integer>>();
+        List<Integer> l = new ArrayList<Integer>();
+        int ss = 0;
+        int e = 0;
+        char[] c = s.toCharArray();
+        for(int i = 1; i<c.length; i++){
+            if(c[i] == c[i-1]){
+                e++;
+            }else{
+                if(e-ss>=2){
+                    l.add(ss);
+                    l.add(e);
+                    re.add(new ArrayList<Integer>(l));
+                    l = new ArrayList<Integer>();
+                }
+                
+                ss = i;
+                e = i;
+            }
+        }
+
+        if(e-ss>=2){
+            l.add(ss);
+            l.add(e);
+            re.add(new ArrayList<Integer>(l));
+            l = new ArrayList<Integer>();
+        }
+
+        return re;
+    }
+}
