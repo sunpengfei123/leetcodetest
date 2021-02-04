@@ -1,0 +1,28 @@
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int a = 0;
+        int z = 0;
+        int y = k-1;
+        double re =0;
+        int rz = 0;
+        int ry = k-1;
+        int t =0;
+        for(int i = 1; i<nums.length-k+1; i++){
+            t-=nums[z];
+            t+=nums[y+1];
+            if(a < t){
+                rz = z+1;
+                ry = y+1;
+                a=t;
+            }
+            z++;
+            y++;
+        }
+        int s = 0;
+        for(int i = rz; i<=ry; i++){
+            s+=nums[i];
+        }
+        re = ((double)s/k);
+        return re;
+    }
+}
