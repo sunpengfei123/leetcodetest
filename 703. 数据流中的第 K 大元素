@@ -5,15 +5,25 @@ class KthLargest {
     public KthLargest(int k, int[] nums) {
         this.k = k;
         this.nums = nums;
+        Arrays.sort(this.nums);
     }
     
     public int add(int val) {
         int[] newnum = new int[nums.length+1];
-        newnum[0] = val;
+        int t = -1;
         for(int i =0; i<nums.length; i++){
-            newnum[i+1] = nums[i];
+            if(nums[i]<val){
+                newnum[i] = nums[i];
+            }else{
+                if(t==-1) t = i;
+                newnum[i+1] = nums[i];
+            }
         }
-        Arrays.sort(newnum);
+        if(t==-1){
+             newnum[newnum.length-1] = val;
+        }else{
+             newnum[t] = val;
+        }
         nums=newnum;
         return newnum[newnum.length-k];
     }
