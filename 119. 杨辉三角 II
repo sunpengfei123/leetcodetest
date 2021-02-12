@@ -1,0 +1,24 @@
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> re = new ArrayList<Integer>();
+        if(rowIndex == 0) {
+            re.add(1);
+            return re;
+        }
+
+        if(rowIndex==1){
+            re.add(1);
+            re.add(1);
+            return re;
+        }
+
+        List<Integer> shang = getRow(rowIndex-1);
+        re.add(1);
+        for(int i=0; i<shang.size()-1; i++){
+            re.add(shang.get(i)+shang.get(i+1));
+        }
+        re.add(1);
+        return re;
+
+    }
+}
