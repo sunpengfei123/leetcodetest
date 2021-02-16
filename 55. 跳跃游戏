@@ -1,0 +1,25 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        return ff(nums, nums.length-1);
+    }
+
+    public boolean ff(int[] nums, int index){
+        if(index == 0){
+            return true;
+        }
+        int t = -1;
+        for(int i = index-1; i>=0; i--){
+            if(nums[i]>=index-i){
+                t = i;
+            }
+        }
+
+        if(t == -1){
+            return false;
+        }else{
+            return ff(nums,t);
+        }
+
+        
+    }
+}
