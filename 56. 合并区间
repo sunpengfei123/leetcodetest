@@ -1,0 +1,31 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals,new Comparator<int[]>(){
+            public int compare(int[] o1, int[] o2){
+                return o1[0]-o2[0]==0?o1[1]-o2[1]:o1[0]-o2[0];
+            }
+        });
+
+        List<Integer> l = new ArrayList<Integer>();
+        int s = intervals[0][0];
+        int e = intervals[0][1];
+        for(int i = 1; i<intervals.length; i++){
+            if(intervals[i][0] <= e){
+                e = Math.max(e,intervals[i][1]);
+            }else{
+                l.add(s);
+                l.add(e);
+                s = intervals[i][0];
+                e = intervals[i][1];
+            }
+        }
+        l.add(s);
+        l.add(e);
+
+        int[][] re = new int[l.size()/2][2];
+        for(int i  = 0; i<l.size(); i++){
+            re[i/2][i%2] = l.get(i);
+        }
+        return re;
+    }
+}
