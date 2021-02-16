@@ -1,0 +1,19 @@
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int re = 0;
+        int t = 0;
+        char[] cc = s.toCharArray();
+        for(int i = cc.length-1; i>=0; i--){
+            if(cc[i] == ' ' && re == 0){
+                continue;
+            }else{
+                if(cc[i] == ' '){
+                    return re;
+                }else{
+                    re++;
+                }
+            }
+        }
+        return re;
+    }
+}
