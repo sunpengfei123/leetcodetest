@@ -1,0 +1,54 @@
+class Solution {
+    public int longestSubstring(String s, int k) {
+        
+        return ff(s,k,0,s.length()-1);
+
+    }
+
+    public int ff(String s, int k, int l, int r){
+        int[] cont = new int[26];
+
+        int re = 0;
+
+        for(int i = l; i<=r; i++){
+            cont[s.charAt(i) - 'a']++;
+        }
+        char sp = '0';
+        for(int i = 0; i< 26; i++){
+            if(cont[i] > 0 && cont[i] < k){
+                sp = (char)(i + 'a');
+                break;
+            }
+        }
+
+        if(sp == '0'){
+            return r-l+1;
+        }
+
+        int ll = l;
+
+        while(ll <= r){
+
+            while(ll <= r && s.charAt(ll) == sp){
+                ll++;
+            }
+
+            if(ll > r){
+                break;
+            }
+
+            int start = ll;
+
+            while(ll <= r && s.charAt(ll) != sp){
+                ll++;
+            }
+
+            int len = ff(s,k,start,ll-1);
+
+            re = Math.max(re, len);
+
+        }
+
+        return re;
+    }
+}
