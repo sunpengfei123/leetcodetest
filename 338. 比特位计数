@@ -1,0 +1,15 @@
+class Solution {
+    public int[] countBits(int num) {
+        int[] re = new int[num+1];
+        if(num == 0){
+            return new int[]{0};
+        }
+
+        re[0] = 0;
+        re[1] = 1;
+        for(int i = 2; i<num+1; i++){
+            re[i] = re[i%(int)Math.pow(2,(Integer.toBinaryString(i).length()-1))]+1;
+        }
+        return re;
+    }
+}
