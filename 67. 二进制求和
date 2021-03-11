@@ -1,0 +1,35 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        int jin = 0;
+        ArrayList<Integer> al = new ArrayList<>();
+        int alen = a.length();
+        int blen = b.length();
+        int i = 0;
+        int j = 0;
+        while(i<alen || j <blen){
+            if(i>=alen){
+                al.add((b.charAt(blen-1-j)-'0'+jin)%2);
+                jin = (b.charAt(blen-1-j)-'0'+jin)/2;
+                j++;
+            }else if(j>=blen){
+                al.add((a.charAt(alen-1-i)-'0'+jin)%2);
+                jin = (a.charAt(alen-1-i)-'0'+jin)/2;
+                i++;
+            }else{
+                al.add((a.charAt(alen-1-i)-'0'+jin+b.charAt(blen-1-j)-'0')%2);
+                jin = (a.charAt(alen-1-i)-'0'+jin+b.charAt(blen-1-j)-'0')/2;
+                i++;
+                j++;
+            }
+        }
+        if(jin>0){
+            al.add(jin);
+        }
+        StringBuffer sb = new StringBuffer();
+        for(int ii = 0; ii<al.size(); ii++){
+            sb.append(al.get(al.size()-1-ii));
+        }
+
+        return sb.toString();
+    }
+}
