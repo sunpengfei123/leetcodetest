@@ -1,0 +1,29 @@
+class Solution {
+    public int calculate(String s) {
+        char sign = '+';
+        int num = 0;
+        int re = 0;
+        Stack<Integer> n = new Stack<>();
+        for(int i=0; i<s.length();i++){
+            char chr = s.charAt(i);
+            if(chr >= '0'){
+                num = num*10-'0'+chr;
+            }
+            if((chr<'0' && chr!=' ') || i == s.length()-1){
+                switch(sign){
+                    case '+': n.push(num);break;
+                    case '-': n.push(-num);break;
+                    case '*': n.push(n.pop()*num);break;
+                    case '/': n.push(n.pop()/num);break;
+                }
+                sign = chr;
+                num=0;
+            }
+        }  
+        while(!n.isEmpty()){
+            re+=n.pop();
+        } 
+
+        return re;
+    }
+}
