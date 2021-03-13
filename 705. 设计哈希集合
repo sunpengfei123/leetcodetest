@@ -1,0 +1,65 @@
+class MyHashSet {
+
+    private int BASE = 769;
+
+    private LinkedList[] base;
+
+    /** Initialize your data structure here. */
+    public MyHashSet() {
+        base = new LinkedList[BASE];
+        for(int i = 0; i<BASE; i++){
+            base[i] = new LinkedList<Integer>();
+        }
+    }
+    
+    public void add(int key) {
+        int h = hash(key);
+        Iterator<Integer> ite = base[h].iterator();
+        while(ite.hasNext()){
+            Integer next = ite.next();
+            if(next == key){
+                return;
+            }
+        }
+        base[h].offerLast(key);
+    }
+    
+    public void remove(int key) {
+        int h = hash(key);
+        Iterator<Integer> ite = base[h].iterator();
+        while(ite.hasNext()){
+            Integer next = ite.next();
+            if(next == key){
+                base[h].remove(next);
+                return;
+            }
+        }
+
+    }
+    
+    /** Returns true if this set contains the specified element */
+    public boolean contains(int key) {
+        int h = hash(key);
+        Iterator<Integer> ite = base[h].iterator();
+        while(ite.hasNext()){
+            Integer next = ite.next();
+            if(next == key){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public int hash(int a){
+        return a%BASE;
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */
