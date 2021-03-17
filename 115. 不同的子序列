@@ -1,0 +1,64 @@
+class Solution {
+    int[] jishu;
+    public int numDistinct(String s, String t) {
+
+        jishu = new int[t.length()];
+
+        Stack<Character> st = new  Stack<Character>();
+
+        for(int i = 0; i<t.length(); i++){
+            st.push(t.charAt(i));
+        }
+        int k = 0;
+        for(int i = s.length()-1; i>=0; i--){
+            if(st.isEmpty()){
+                break;
+            }
+            if(st.peek() == s.charAt(i)){
+                st.pop();
+                jishu[t.length()-1-k] = i;
+                k++;
+            }
+        }
+
+        if(!st.isEmpty()){
+            return 0;
+        }
+
+
+        return ff(s,t,0,0);
+    }
+
+    public int ff(String s, String t, int ss, int tt){
+
+        int index = 0;
+        int re = 0;
+        if( t.length() == tt+1){
+            for(int i = ss; i<s.length(); i++){
+                if(s.charAt(i) == t.charAt(tt)){
+                    re++;
+                }
+            }  
+            return re;
+        }
+
+        int ji = 0;
+        int wei = 0;
+
+        for(int i = ss; i<=jishu[tt+1]; i++){
+            
+            if(s.charAt(i) == t.charAt(tt)){
+                ji++;
+                wei = i;
+            }
+            if(ji>0 && s.charAt(i) == t.charAt(tt+1)){
+                re += ji*ff(s,t,wei+1,tt+1);
+                ji = 0;
+                wei = 0;
+            }
+        }
+
+        return re;
+
+    }
+}
