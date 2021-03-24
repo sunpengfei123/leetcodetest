@@ -1,0 +1,24 @@
+//n*n
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        int[] xiao = new int[nums.length];
+        xiao[0] = nums[0];
+        ArrayList<Integer> ke = new ArrayList<Integer>();
+        for(int i = 1; i<nums.length-1; i++){
+            if(nums[i] > xiao[i-1] || nums[i] > nums[i-1]){
+                ke.add(i);
+            }
+            xiao[i] = Math.min(xiao[i-1],nums[i-1]);
+        }
+
+        for(int i:ke){
+            for(int j = i+1; j<nums.length; j++){
+                if(nums[j] < nums[i] && nums[j] > xiao[i]){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+}
