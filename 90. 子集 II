@@ -1,0 +1,44 @@
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<Integer> newl = new ArrayList<Integer>();
+        for(int i = 0; i<nums.length; i++){
+            newl.add(nums[i]);
+        }
+
+        return ff(newl);
+    }
+
+    public List<List<Integer>> ff(List<Integer> nums){
+
+        if(nums == null || nums.size() == 0){
+            List<List<Integer>> re = new ArrayList<List<Integer>>();
+            re.add(new ArrayList<Integer>());
+            return re;
+        }
+
+        List<Integer> newl = new ArrayList<Integer>();
+        int num = 1;
+        int num0 = nums.get(0);
+        for(int i = 1; i<nums.size(); i++){
+            if(nums.get(i) != nums.get(0)){
+                newl.add(nums.get(i));
+            }else{
+                num++;
+            }
+        }
+        List<List<Integer>> pre = ff(newl);
+        List<List<Integer>> re = new ArrayList<List<Integer>>();
+        for(int i = 0; i<=num; i++){
+            for(List<Integer> l:pre){
+                List<Integer> ll = new ArrayList<Integer>(l);
+                for(int j = 0; j<i; j++){
+                    ll.add(num0);
+                }
+                re.add(ll);
+            }
+        }
+
+        return re;
+
+    }
+}
