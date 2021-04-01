@@ -1,0 +1,26 @@
+class Solution {
+    public int clumsy(int N) {
+        int wei = 0;
+        int re = 0;
+        int[] cun = new int[N/4+1];
+        cun[0] = N;
+        N--;
+        while(N>0){
+            switch(wei%4){
+                case 0: cun[(wei+1)/4]*=N;break;
+                case 1: cun[(wei+1)/4]/=N;break;
+                case 2: cun[(wei+1)/4]+=wei < 4 ? N : N*-1;break;
+                case 3: cun[(wei+1)/4]=N;break;
+                default: break;
+            }
+            N--;
+            wei++;
+        }
+        re = cun[0];
+        for(int i = 1; i<cun.length; i++){
+            re -= cun[i];
+        }
+
+        return re;
+    }
+}
