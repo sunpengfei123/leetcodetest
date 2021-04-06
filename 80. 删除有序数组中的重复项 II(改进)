@@ -1,0 +1,24 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int chong = 0;
+        int a = 1;
+        int b = 1;
+        while(b<nums.length){
+            while(b<nums.length && nums[b]==nums[a-1] && chong >= 1){
+                b++;
+            }
+            if(b>=nums.length){
+                return a;
+            }
+            nums[a] = nums[b];
+            if(nums[a-1] == nums[b]){
+                chong++;
+            }else{
+                chong=0;
+            }
+            a++;
+            b++;
+        }
+        return a;
+    }
+}
