@@ -1,0 +1,38 @@
+class Solution {
+    public boolean search(int[] nums, int target) {
+        if(nums.length == 1)return nums[0] == target;
+        int z = 0;
+        int y = nums.length-1;
+        while(z <= y){
+            int m = (z+y)/2;
+            if(nums[m] == target){
+                return true;
+            }else{
+                if(nums[m] == nums[z] && nums[m] == nums[y]){
+                    while(z < nums.length && nums[z] == nums[m]){
+                        z++;
+                    }
+                    while(y >=0 && nums[y] == nums[m]){
+                        y--;
+                    }
+                }else{
+                    if(nums[m] >= nums[z]){
+                        if(target >= nums[z] && target < nums[m]){
+                            y = m -1;
+                        }else{
+                            z = m+1;
+                        }
+                    }else{
+                        if(target > nums[m] && target <= nums[y]){
+                            z = m+1;
+                        }else{
+                            y = m-1;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+}
