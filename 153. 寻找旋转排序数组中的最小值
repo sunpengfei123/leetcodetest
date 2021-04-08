@@ -1,0 +1,30 @@
+class Solution {
+    public int findMin(int[] nums) {
+        if(nums[nums.length-1] >= nums[0]){
+            return nums[0];
+        }
+        int z = 0;
+        int y = nums.length-1;
+        int re = nums[nums.length-1];
+        while(z<y){
+            int m = (z+y)/2;
+            if(re > nums[m]){
+                re = nums[m];
+            }
+            if(re > nums[z]){
+                re = nums[z];
+            }
+            if(re > nums[y]){
+                re = nums[y];
+            }
+            if(nums[m] >= nums[z]){
+                z = m+1;
+            }else{
+                y = m-1;
+            }
+
+        }
+
+        return re;
+    }
+}
