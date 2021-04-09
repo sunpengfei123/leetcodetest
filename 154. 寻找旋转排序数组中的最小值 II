@@ -1,0 +1,22 @@
+class Solution {
+    public int findMin(int[] nums) {
+        int re = nums[0];
+        int z = 0;
+        int y = nums.length-1;
+        while(z<y){
+            int m = (z+y)/2;
+            re = Math.min(re,nums[m]);
+            re = Math.min(re,nums[z]);
+            re = Math.min(re,nums[y]);
+            if(nums[m] == nums[z] && nums[m] == nums[y]){
+                z++;
+                y--;
+            }else if(nums[m] >= nums[z]){
+                z = m+1;
+            }else{
+                y = m-1;
+            }
+        }
+        return re;
+    }
+}
