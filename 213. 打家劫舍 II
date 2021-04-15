@@ -1,0 +1,42 @@
+class Solution {
+    int[] t = null;
+    public int rob(int[] nums) {
+
+        int[] zui = new int[nums.length];
+        int[] bu = new int[nums.length];
+
+        int re = 0;
+
+        if(nums.length <= 3){
+            for(int i = 0; i<nums.length; i++){
+                re = Math.max(re,nums[i]);
+            }
+            return re;
+        }
+
+        zui[0] = nums[0];
+        zui[1] = 0;
+        zui[2] = nums[2]+nums[0];
+        bu[0] = 0;
+        bu[1] = nums[1];
+        bu[2] = nums[2];
+
+        for(int i = 0; i<3; i++){
+                re = Math.max(re,zui[i]);
+        }
+
+        for(int i = 3; i<nums.length; i++){
+            if(i < nums.length-1){
+                bu[i] = nums[i] + Math.max(bu[i-2], bu[i-3]);
+                zui[i] = nums[i] + Math.max(zui[i-2], zui[i-3]);
+                re = Math.max(re,bu[i]);
+                re = Math.max(re,zui[i]);
+            }else{
+                bu[i] = nums[i] + Math.max(bu[i-2], bu[i-3]);
+                re = Math.max(re,bu[i]);
+            }
+        }
+        return re;
+    }
+
+}
