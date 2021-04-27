@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int re = 0;
+    int l = 0;
+    int h = 0;
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        l = low;
+        h = high;
+        zhong(root);
+        return re;
+    }
+
+    public void zhong(TreeNode root){
+        if(root == null){
+            return ;
+        }
+        zhong(root.left);
+        if(root.val <= h && root.val >= l){
+            re+=root.val;
+        }
+        zhong(root.right);
+    }
+}
