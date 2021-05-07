@@ -1,0 +1,11 @@
+class Solution {
+    public int[] decode(int[] encoded, int first) {
+        int[] re = new int[encoded.length+1];
+        re[0] = first;
+        for(int i = 1; i<re.length; i++){
+            re[i] = re[i-1] ^ encoded[i-1];
+        }
+
+        return re;
+    }
+}
