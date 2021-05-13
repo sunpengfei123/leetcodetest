@@ -1,0 +1,48 @@
+class Solution {
+    ArrayList<String> re = new ArrayList<String>();
+    public List<String> generateParenthesis(int n) {
+        ff(0, 2*n, new StringBuffer());
+        return re;
+    }
+
+    public void ff(int in, int n, StringBuffer s){
+        if(in == n){
+            if(isValid(s.toString())){
+                re.add(s.toString());
+            }
+        }else{
+            StringBuffer ss = new StringBuffer(s);
+            ff(in+1, n, ss.append("("));
+            ss = new StringBuffer(s);
+            ff(in+1, n, ss.append(")"));
+        }
+    }
+
+    public boolean isValid(String s) {
+        Stack<Character> st = new Stack<Character>();
+        int num = 0;
+        for(int i = 0; i<s.length(); i++){
+            char c = s.charAt(i);
+            if(c == '('){
+                num++;
+                st.push(c);
+            }else{
+
+                if(st.isEmpty())return false;
+
+                char cc = st.pop();
+
+                switch(c){
+                    case ')': if(cc != '(') return false;else num--;break;
+                    default: break;
+                }
+            }
+
+            if(i == s.length() -1 && num == 0){
+                return true;
+            }
+        }
+        return false;
+
+    }
+}
