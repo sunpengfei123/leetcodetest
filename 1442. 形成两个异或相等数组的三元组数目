@@ -1,0 +1,21 @@
+class Solution {
+    public int countTriplets(int[] arr) {
+        int[] cun = new int[arr.length+1];
+        cun[0] = 0;
+        for(int i = 1; i<arr.length+1; i++){
+            cun[i] = cun[i-1] ^ arr[i-1];
+        }
+        int re = 0;
+        for(int i = 0; i<arr.length-1; i++){
+            for(int j = i+1; j<arr.length; j++){
+                for(int k = j; k<arr.length; k++){
+                    if((cun[j] ^ cun[i]) == (cun[k+1] ^ cun[j])){
+                        re++;
+                    }
+                }
+            }
+        }
+
+        return re;
+    }
+}
