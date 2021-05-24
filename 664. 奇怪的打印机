@@ -1,0 +1,22 @@
+class Solution {
+    public int strangePrinter(String s) {
+        int[][] f = new int[s.length()][s.length()];
+        int n = s.length();
+        for(int i = n-1; i>=0; i--){
+            f[i][i] = 1;
+            for(int j = i+1; j<n; j++){
+                if(s.charAt(i) == s.charAt(j)){
+                    f[i][j] = f[i][j-1];
+                }else{
+                    int m = Integer.MAX_VALUE;
+                    for(int k = i; k<j; k++){
+                        m = Math.min(m, f[i][k] + f[k+1][j]);
+                    }
+                    f[i][j] = m;
+                }
+            }
+        }
+
+        return f[0][n-1];
+    }
+}
