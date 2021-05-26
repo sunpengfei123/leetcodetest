@@ -1,0 +1,32 @@
+class Solution {
+    public String reverseParentheses(String s) {
+        Stack<Character> st = new Stack<Character>();
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i<s.length(); i++){
+            char c = s.charAt(i);
+            if(c != ')'){
+                st.push(c);
+            }else{
+                while(!st.isEmpty()){
+                    char cc = st.pop();
+                    if(cc != '('){
+                        sb.append(cc);
+                    }else{
+                        for(char ac: sb.toString().toCharArray()){
+                            st.push(ac);
+                        }
+                        sb = new StringBuffer();
+                        break;
+                    }
+                }
+            }
+        }
+
+        while(!st.isEmpty()){
+            sb.append(st.pop());
+        }
+
+        return sb.reverse().toString();
+
+    }
+}
