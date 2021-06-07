@@ -1,0 +1,20 @@
+class Solution {
+    public int[] constructArr(int[] a) {
+        if(a.length == 0) return new int[]{};
+        int[] z = new int[a.length+1];
+        int[] y = new int[a.length+1];
+        z[0] = 1;
+        for(int i = 1; i<z.length; i++){
+            z[i] = z[i-1] * a[i-1];
+        }
+        y[y.length-1] = 1;
+        for(int i = z.length-2; i >= 0; i--){
+            y[i] = y[i+1] * a[i];
+        }
+        int[] re = new int[a.length];
+        for(int i = 0; i<re.length; i++){
+            re[i] = z[i] * y[i+1];
+        }
+        return re;
+    }
+}
