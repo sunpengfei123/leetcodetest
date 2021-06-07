@@ -1,0 +1,21 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        ArrayList<ListNode> al = new ArrayList<ListNode>();
+        int num = 0;
+        if(head == null) return null;
+        while(head != null){
+            al.add(head);
+            head = head.next;
+            num++;
+        }
+        return al.get(num-k);
+    }
+}
