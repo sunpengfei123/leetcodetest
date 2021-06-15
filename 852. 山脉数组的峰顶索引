@@ -1,0 +1,20 @@
+class Solution {
+    public int peakIndexInMountainArray(int[] arr) {
+        int z = 0;
+        int y = arr.length-1;
+        int re = -1;
+        while(z < y){
+            int m = (z+y)/2;
+            if(arr[m] > arr[m+1]){
+                y = m;
+                re = m;
+            }else{
+                z = m+1;
+                re = m+1;
+            }
+        }
+
+        return re;
+
+    }
+}
