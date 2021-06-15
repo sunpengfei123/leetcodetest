@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int t = 0;
+    int k = 0;
+    public int kthLargest(TreeNode root, int k) {
+        this.k = k;
+        int re = ff(root);
+        return re;
+    }
+
+    public int ff(TreeNode r){
+        if(r == null ){
+            return -1;
+        }
+        int re = -1;
+        re = ff(r.right);
+        if(re != -1) return re;
+        t++;
+        if(t == k) return r.val;
+        re = ff(r.left);
+        if(re != -1) return re;
+        return -1;
+    }
+}
