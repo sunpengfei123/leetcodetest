@@ -1,0 +1,57 @@
+class Solution {
+    HashMap<Integer,int[]> hm = new HashMap<Integer,int[]>();
+    int[][][][] cun ;
+    public boolean stoneGame(int[] piles) {
+        cun = new int[2][500][500][2];
+        int[] re = ff(piles, 0, piles.length-1,0);
+        return re[0] > re[1]? true:false;
+    }
+
+    public int[] ff(int[] p, int z, int y, int r){
+        int[] re = new int[2];
+
+        if(z + 1 == y){
+            re[r] = Math.max(p[z],p[y]);
+            re[1-r] = Math.min(p[z],p[y]);
+            // hm.put(z+y*501+r*300000,re);
+            cun[r][z][y] = re;
+            return re;
+        }
+
+        int[] a = new int[2];
+        int[] b = new int[2];
+        int aa = (z+1) + y*501+(1-r)*300000;
+        int bb = (z) + (y-1)*501+(1-r)*300000;
+        // if(hm.containsKey(aa)){
+        if(cun[1-r][z+1][y][0] != 0){
+            a[0] = cun[1-r][z+1][y][0];
+            a[1] = cun[1-r][z+1][y][1];
+        }else{
+            a[0] = ff(p,z+1,y,1-r)[0];
+            a[1] = ff(p,z+1,y,1-r)[1];
+        }
+        // if(hm.containsKey(bb)){
+        if(cun[1-r][z][y-1][0] != 0){
+            b[0] = cun[1-r][z][y-1][0];
+            b[1] = cun[1-r][z][y-1][1];
+        }else{
+            b[0] = ff(p,z,y-1,1-r)[0];
+            b[1] = ff(p,z,y-1,1-r)[1];
+        }
+        a[r] += p[z];
+        b[r] += p[y];
+        if(a[r] > b[r]){
+            re[0] = a[0];
+            re[1] = a[1];
+        }else{
+            re[0] = b[0];
+            re[1] = b[1];
+        }
+
+        cun[r][z][y] = re;
+
+        return re;
+        
+    }
+
+}
