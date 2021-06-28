@@ -1,0 +1,18 @@
+class Solution {
+    public int fib(int n) {
+        int a = 0;
+        int b = 1;
+        int c = a+b;
+        int m = 1000000007;
+        if(n<=1){
+            return n;
+        }
+        while(n>1){
+            c = (a + b)%m;
+            a = b;
+            b = c;
+            n--;
+        }
+        return c;
+    }
+}
