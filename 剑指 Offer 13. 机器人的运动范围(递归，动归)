@@ -1,0 +1,28 @@
+class Solution {
+
+    public int movingCount(int m, int n, int k) {
+        boolean[][] a = new boolean[m][n];
+        int re = 0;
+        a[0][0] = true;
+        for(int i = 0; i<m; i++){
+            for(int j = 0; j<n; j++){
+                if(ff(i) + ff(j) > k) continue;
+                if(i-1>=0) a[i][j] |= a[i-1][j];
+                if(j-1>=0) a[i][j] |= a[i][j-1];
+                re+=a[i][j]?1:0;
+            }
+        }
+
+        return re;
+        
+    }
+
+    public int ff(int t){
+        int re = 0;
+        while(t>0){
+            re += t%10;
+            t = t/10; 
+        }
+        return re;
+    }
+}
