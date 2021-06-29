@@ -1,0 +1,21 @@
+class Solution {
+    public String convertToTitle(int columnNumber) {
+        StringBuffer sb = new StringBuffer();
+        if(columnNumber<=26){
+            sb.append((char)('A'+columnNumber-1));
+            return sb.toString();
+        }
+
+        while(columnNumber > 0){
+            int t = columnNumber%26;
+
+            sb.append(t==0?'Z':(char)('A'+t-1));
+
+            if(t == 0) columnNumber-=26;
+            columnNumber-=t;
+            columnNumber/=26;
+        }
+
+        return sb.reverse().toString();
+    }
+}
