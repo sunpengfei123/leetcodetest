@@ -1,0 +1,40 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        int n = s.length();
+        boolean[][] f = new boolean[n][n];
+        for(int i = n-1; i>=0; i--){
+            f[i][i] = true;
+            for(int j = i+1; j<n; j++){
+                if(s.charAt(i) == s.charAt(j)){
+                    f[i][j] = j-i==1?true:f[i+1][j-1];
+                }else{
+                    f[i][j] = false;
+                }
+                
+            }
+        }
+
+        List<List<String>> re = new ArrayList<List<String>>();
+        List<String> curL =  new ArrayList<String>();
+        
+        dfs(s,0,re,curL,f);
+
+        return re;
+    }
+
+    void dfs(String s, int cur, List<List<String>> re, List<String> curL, boolean[][] f){
+        int n = s.length();
+        if(cur == n){
+            re.add(new ArrayList<>(curL));
+        }
+
+        for(int i = cur; i<n; i++){
+            if(f[cur][i]){
+                curL.add(s.substring(cur,i+1));
+                dfs(s,i+1,re,curL,f);
+                curL.remove(curL.size()-1);
+            }
+        }
+
+    }
+}
