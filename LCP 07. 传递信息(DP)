@@ -1,0 +1,28 @@
+class Solution {
+    public int numWays(int n, int[][] relation, int k) {
+        HashMap<Integer,List<Integer>> hm = new HashMap<Integer,List<Integer>>();
+        for(int[] t:relation){
+            if(!hm.containsKey(t[0])){
+                List<Integer> l = new ArrayList<Integer>();
+                l.add(t[1]);
+                hm.put(t[0],l);
+            }else{
+                hm.get(t[0]).add(t[1]);
+            }
+        }
+
+        int[][] c = new int[k+1][n];
+        c[0][0] = 1;
+        for(int i = 1; i<k+1; i++){
+            for(int j = 0; j<n; j++){
+                if(c[i-1][j] > 0 && hm.containsKey(j)){
+                    for(int t: hm.get(j)){
+                        c[i][t] += c[i-1][j];
+                    }
+                }
+            }
+        }
+
+        return c[k][n-1];
+    }
+}
