@@ -1,0 +1,98 @@
+class Solution {
+    public String countOfAtoms(String formula) {
+        int n = 0;
+        StringBuffer sb = new StringBuffer();
+        HashMap<String,Integer> hm = new HashMap<String, Integer>();
+        TreeSet<String> ts = new TreeSet<String>();
+        formula = zhan(formula);
+        for(char c:formula.toCharArray()){
+            if(c>='a'&&c<='z'){
+                sb.append(c);
+            }else if(c>='A'&&c<='Z'){
+                n = Math.max(n,1);
+                if(sb!=null&&sb.length()>0){
+                    ts.add(sb.toString());
+                    if(hm.containsKey(sb.toString())){
+                        hm.put(sb.toString(),hm.get(sb.toString())+n);
+                    }else{
+                        hm.put(sb.toString(),n);
+                    }
+                }
+                n = 0;
+                sb = new StringBuffer();
+                sb.append(c);
+            }else if(c == '(' || c == ')'){
+                if(c == '('){
+
+                }
+            }else{
+                n = n*10+c-'0';
+            }
+        }
+
+        n = Math.max(n,1);
+        if(sb!=null&&sb.length()>0){
+            ts.add(sb.toString());
+            if(hm.containsKey(sb.toString())){
+                hm.put(sb.toString(),hm.get(sb.toString())+n);
+            }else{
+                hm.put(sb.toString(),n);
+            }
+        }
+
+        StringBuffer re = new StringBuffer();
+        for(String s:ts){
+            re.append(s);
+            int i = hm.get(s);
+            if(i>1)re.append(i);
+        }
+        return re.toString();
+    }
+    public String zhan(String os){
+        Stack<String> st = new Stack<String>();
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i<os.length(); i++){
+            char c = os.charAt(i);
+            if(c == '('){
+                if(sb != null && sb.length() != 0)
+                    st.push(sb.toString());
+                st.push(c+"");
+                sb = new StringBuffer();
+            }else if(c != ')'){
+                sb.append(c);
+            }else{
+                // if(sb != null && sb.length() != 0)
+                //     st.push(sb.toString());
+                // sb = new StringBuffer();
+                int j = i+1;
+                int n = 0;
+                while(j < os.length() && os.charAt(j)>='0'&&os.charAt(j)<='9'){
+                    n = n*10 + os.charAt(j)-'0';
+                    j++;
+                }
+                n = Math.max(1,n);
+                i = j-1;
+
+                while(!st.isEmpty()){
+                    String s = st.pop();
+                    if(s.equals("(")){
+                        for(int k = 0; k<n; k++){
+                            st.push(sb.toString());
+                        }
+                        break;
+                    }else{
+                        sb.append(s);
+                    }
+                }
+                sb = new StringBuffer();
+            }
+        }
+        st.push(sb.toString());
+        sb = new StringBuffer();
+        while(!st.isEmpty()){
+            String s = st.pop();
+            sb.append(s);
+        }
+        return sb.toString();
+    }
+}
