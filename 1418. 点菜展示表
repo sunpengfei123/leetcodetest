@@ -1,0 +1,57 @@
+class Solution {
+    public List<List<String>> displayTable(List<List<String>> orders) {
+        HashMap<String, HashMap<String,Integer>> hm = new HashMap<String, HashMap<String,Integer>>();
+        TreeSet<Integer> ts = new TreeSet<Integer>();
+        TreeSet<String> ts2 = new TreeSet<String>();
+        for(List<String> ml : orders){
+            String table = ml.get(1);
+            String cai = ml.get(2);
+            ts.add(sTi(table));
+            ts2.add(cai);
+            if(hm.containsKey(table)){
+                HashMap<String,Integer> h = hm.get(table);
+                if(h.containsKey(cai)){
+                    h.put(cai,h.get(cai)+1);
+                }else{
+                    h.put(cai,1);
+                }
+            }else{
+                HashMap<String,Integer> h = new HashMap<String,Integer>();
+                h.put(cai,1);
+                hm.put(table,h);
+            }
+        }
+
+        List<List<String>> re = new ArrayList<List<String>>();
+        List<String> one = new ArrayList<String>();
+        one.add("Table");
+        for(String s:ts2){
+            one.add(s);
+        }
+        re.add(one);
+        for(int t:ts){
+            List<String> k = new ArrayList<String>();
+            k.add(t+"");
+            for(int i = 1; i<one.size(); i++){
+                HashMap<String,Integer> h = hm.get(t+"");
+                if(h.containsKey(one.get(i))){
+                    k.add(h.get(one.get(i))+"");
+                }else{
+                    k.add(0+"");
+                }
+            }
+            re.add(k);
+        }
+
+        return re;
+
+    }
+
+    public int sTi(String s){
+        int re = 0;
+        for(char c: s.toCharArray()){
+            re = re*10+c-'0';
+        }
+        return re;
+    }
+}
