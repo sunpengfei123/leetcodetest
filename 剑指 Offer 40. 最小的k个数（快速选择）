@@ -1,0 +1,41 @@
+class Solution {
+    public int[] getLeastNumbers(int[] arr, int k) {
+        erfen(arr, 0, arr.length -1, k);
+        int[] re = new int[k];
+        for(int i = 0;i<k; i++){
+            re[i] = arr[i];
+        }
+        return re;
+    }
+    public void erfen(int[] a, int z, int y, int k){
+        if(z>=y || z==k){
+            return ;
+        }
+        int t = a[z];
+        int zz = z+1;
+        int yy = y;
+        while(zz<=yy){
+            while(zz<=yy && a[zz] <= t){
+                zz++;
+            }
+            while(yy>=zz && a[yy] >= t){
+                yy--;
+            }
+            if(zz >= a.length || yy <= 0 || zz > yy){
+                break;
+            }
+            int tt = a[zz];
+            a[zz] = a[yy];
+            a[yy] = tt;
+        }
+        a[z] = a[zz-1];
+        a[zz-1] = t;
+        if(zz == k){
+            return;
+        }else if(zz > k){
+            erfen(a, z, zz-2, k);
+        }else{
+            erfen(a, zz, y, k);
+        }
+    }
+}
