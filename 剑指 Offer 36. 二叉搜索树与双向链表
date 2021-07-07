@@ -1,0 +1,60 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val,Node _left,Node _right) {
+        val = _val;
+        left = _left;
+        right = _right;
+    }
+};
+*/
+class Solution {
+    public Node treeToDoublyList(Node root) {
+        
+        if(root == null ) return root;
+        if(root.left == null && root.right == null){
+            root.left = root;
+            root.right = root;
+            return root;
+        }
+
+        if(root.left == null){
+            Node you = treeToDoublyList(root.right);
+            root.right = you;
+            root.left = you.left;
+            you.left.right = root;
+            you.left = root;
+            return root;
+        }
+
+        if(root.right == null){
+            Node zuo = treeToDoublyList(root.left);
+            root.left = zuo.left;
+            root.right = zuo;
+            zuo.left.right = root;
+            zuo.left = root;
+            return zuo;
+        }
+
+        Node zuo = treeToDoublyList(root.left);
+        Node you = treeToDoublyList(root.right);
+        root.left = zuo.left;
+        root.right = you;
+        root.left.right = root;
+        zuo.left = you.left;
+        you.left = root;
+        zuo.left.right = zuo;
+        return zuo;
+
+    }
+}
