@@ -1,0 +1,44 @@
+class Solution {
+    public int countPairs(int[] deliciousness) {
+        HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+        List<int[]> l = new ArrayList<int[]>();
+        for(int i = 0; i<deliciousness.length; i++){
+            if(!hm.containsKey(deliciousness[i])){
+                
+                for(int j = 0; j<=21; j++){
+                    int t = (int)Math.pow(2,j);
+                    if(hm.containsKey(t-deliciousness[i])){
+                        l.add(new int[]{deliciousness[i], t-deliciousness[i]});
+                    }
+                }
+
+                hm.put(deliciousness[i], 1);
+            }else{
+                hm.put(deliciousness[i],hm.get(deliciousness[i])+1);
+            }
+            if(mi(2*deliciousness[i]) && hm.get(deliciousness[i]) == 2){
+                l.add(new int[]{deliciousness[i],deliciousness[i]});
+            }
+        }
+
+        long re = 0;
+        int m = 1000000007;
+        for(int[] k: l){
+            if(k[0] == k[1]){
+                int t = hm.get(k[0]);
+                re = ((re%m) + (((long)t%m)*((t-1)%m)/2))%m;
+                // re+=t;
+                continue;
+            }
+
+            re = ((re%m) + ((long)hm.get(k[0])%m)*(hm.get(k[1])%m))%m;
+        }
+        return (int)re;
+    }
+
+    public boolean mi(int n){
+        if(n<=0) return false;
+        if((n & (n-1)) == 0) return true;
+        return false;
+    }
+}
