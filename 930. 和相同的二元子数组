@@ -1,0 +1,17 @@
+class Solution {
+    public int numSubarraysWithSum(int[] nums, int goal) {
+
+        HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+
+        int sum = 0;
+        int re = 0;
+
+        for(int i:nums){
+            hm.put(sum,hm.getOrDefault(sum,0)+1);
+            sum+=i;
+            re+=hm.getOrDefault(sum-goal, 0);
+        }
+        return re;
+
+    }
+}
