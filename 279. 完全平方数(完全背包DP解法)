@@ -1,0 +1,19 @@
+class Solution {
+    public int numSquares(int n) {
+        int[] c = new int[n+1];
+        for(int i = 1; i<n+1; i++){
+            if(Math.pow(((int)Math.sqrt(i)),2) == i)c[i] = 1;
+            else{
+                int k = 1;
+                while(i-k*k > 0){
+                    if(c[i] != 0)
+                        c[i] = Math.min(c[i], 1+c[i-k*k]);
+                    else
+                        c[i] = 1 + c[i - 1];
+                    k++;
+                }
+            }
+        }
+        return c[n];
+    }
+}
