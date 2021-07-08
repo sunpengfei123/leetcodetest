@@ -1,0 +1,26 @@
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] c = new int[amount+1];
+        if(amount == 0) return 0;
+        for(int i = 1 ; i<amount+1; i++){
+            for(int j = 0; j<coins.length; j++){
+                int t = i-coins[j];
+                if(t < 0 )continue;
+                if(t == 0){
+                    c[i] = 1;
+                    break;
+                }
+                if(t > 0 && c[t] > 0){
+                    if(c[i] == 0){
+                        c[i] = 1+c[t];
+                    }else{
+                        c[i] = Math.min(c[i],1+c[t]);
+                    }
+                }
+                
+            }
+        }
+        if(c[amount] == 0) return -1;
+        return c[amount];
+    }
+}
