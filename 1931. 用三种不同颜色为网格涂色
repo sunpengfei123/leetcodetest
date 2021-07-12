@@ -1,0 +1,65 @@
+class Solution {
+    public int colorTheGrid(int m, int n) {
+        List<int[]> l = new ArrayList<int[]>();
+        int mod = 1000000007;
+        int mm = (int)Math.pow(3,m);
+        //找出m行1列所有可能的涂色方案
+        for(int i = 0; i<mm; i++){
+            int[] k = new int[m];
+            int j = 0;
+            int ii = i;
+            for(j = 0; j<m; j++){
+                k[j] = ii%3;
+                ii/=3;
+                if(j > 0 && k[j] == k[j-1])break;
+            }
+            if(j == m) l.add(k);
+        }
+        //找出可能的相邻两列的方案组合
+        HashMap<Integer,List<Integer>> hm = new HashMap<Integer,List<Integer>>();
+        for(int j = 0; j<l.size(); j++){
+                for(int k = 0; k<l.size(); k++){
+                    int i = 0;
+                    for(i = 0; i<m; i++){
+                        if(l.get(j)[i] == l.get(k)[i])break;
+                    }
+                    if(i == m){
+                        if(!hm.containsKey(j)){
+                            List<Integer> ll = new ArrayList<Integer>();
+                            ll.add(k);
+                            hm.put(j,ll);
+                        }else{
+                            hm.get(j).add(k);
+                        }
+                    }
+                }
+        }
+
+        int[] f = new int[l.size()];
+        int[] g = new int[l.size()];
+
+        for(int i = 0; i<l.size(); i++){
+            f[i] = 1;
+        }
+        
+        //一次往后递推到n（这一列每种可能都是 前一列不冲突的 可能数目的 和）
+        for(int i = 1; i<n; i++){
+            g = new int[l.size()];
+            for(int j = 0; j<l.size(); j++){
+                for(int k:hm.get(j)){
+                    g[j]+=f[k];
+                    if(g[j]>=mod){
+                        g[j]-=mod;
+                    }
+                }
+            }
+            f = g;
+        }
+
+        int re = 0;
+        for(int i:f){
+            re = (re + i)%mod;
+        }
+        return re;
+    }
+}
