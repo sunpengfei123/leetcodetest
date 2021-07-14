@@ -1,0 +1,19 @@
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        int re = ff(nums,nums.length-1,target);
+        return re;
+    }
+
+    public int ff(int[] nums, int index, int target){
+        int re = 0;
+        if(index == 0){
+            if(nums[0] == target)re++;
+            if(nums[0] == -target)re++;
+            return re;
+        }else{
+            re += ff(nums,index-1,target-nums[index]);
+            re += ff(nums,index-1,target+nums[index]);
+        }
+        return re;
+    }
+}
