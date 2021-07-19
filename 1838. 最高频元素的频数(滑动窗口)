@@ -1,0 +1,21 @@
+class Solution {
+    public int maxFrequency(int[] nums, int k) {
+        int n = nums.length;
+        int[] sum = new int[n];
+        Arrays.sort(nums);
+        int cnt = 0;
+        int z = 0;
+        int y = 1;
+        int re = 1;
+        while( y < n){
+            cnt += (nums[y] - nums[y-1])*(y-z);
+            while(cnt > k){
+                cnt -= nums[y] - nums[z];
+                z++;
+            }
+            re = Math.max(re,y-z+1);
+            y++;
+        }
+        return re;
+    }
+}
