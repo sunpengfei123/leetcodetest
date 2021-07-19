@@ -1,0 +1,22 @@
+class Solution {
+    public int numRollsToTarget(int d, int f, int target) {
+        int[] dp = new int[target+1];
+        int mod = 1000000007;
+        for(int i = 0; i<d; i++){
+            int[] c = new int[target+1];
+            if(i == 0){
+                for(int j = 1; j<=f && j<= target; j++){
+                    c[j] = 1;
+                }
+            }else{
+                for(int j = f; j>=1; j--){
+                    for(int k = target; k>=0; k--){
+                        if(k - j >=0)c[k] = (c[k] + dp[k-j])%mod;
+                    }
+                }
+            }
+            dp = c;
+        }
+        return dp[target];
+    }
+}
