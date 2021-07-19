@@ -1,0 +1,24 @@
+class Solution {
+    public String largestNumber(int[] cost, int target) {
+        int[] f = new int[target+1];
+        Arrays.fill(f,Integer.MIN_VALUE);
+        f[0] = 0;
+        for(int i = 0; i<cost.length; i++){
+            int c = cost[i];
+            for(int j = c; j<=target; j++){
+                f[j] = Math.max(f[j], f[j-c]+1);
+            }
+        }
+        if(f[target] < 0) return "0";
+        StringBuffer sb = new StringBuffer();
+        int j = target;
+        for(int i = 8; i>=0; i--){
+            int c = cost[i];
+            while(j>=c && f[j] == f[j-c]+1){
+                sb.append(i+1);
+                j-=c;
+            }
+        }
+        return sb.toString();
+    }
+}
