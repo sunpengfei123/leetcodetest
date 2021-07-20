@@ -1,0 +1,62 @@
+class Solution {
+    int[][][] cun = null;
+    public boolean isScramble(String s1, String s2) {
+        int[] s1n = new int[26];
+        int[] s2n = new int[26];
+        cun = new int[s1.length()][s1.length()][s1.length()+1];
+        for(int i = 0; i < s1.length(); i++){
+            s1n[s1.charAt(i)-'a']++;
+            s2n[s2.charAt(i)-'a']++;
+        }
+        for(int i = 0; i<26; i++){
+            if(s1n[i]!= s2n[i])return false;
+        }
+        boolean re = ff(s1,s2,0,0,s1.length());
+        return re;
+    }
+
+    public boolean ff(String s1, String s2, int z1,int z2, int n){
+        if(s1.substring(z1,z1+n).equals(s2.substring(z2,z2+n)))return true;
+        if(Math.abs(cun[z1][z2][n]) == 1){
+            if(cun[z1][z2][n] == 1)return true;
+            return false;
+        }
+        if(n == 1) return s1.charAt(z1) == s2.charAt(z2);
+        int[] s1n = new int[26];
+        int[] s2n = new int[26];
+        boolean re = false;
+        for(int i = 0; i<n-1; i++){
+            s1n[s1.charAt(z1+i)-'a']++;
+            s2n[s2.charAt(z2+i)-'a']++;
+            if(check(s1n,s2n)){
+                re |= (ff(s1,s2,z1,z2,i+1)&ff(s1,s2,z1+i+1,z2+i+1,n-i-1));
+            }
+            if(re){
+                cun[z1][z2][n] = 1;
+                return true;
+            }
+        }
+        s1n = new int[26];
+        s2n = new int[26];
+        for(int i = 0; i<n-1; i++){
+            s1n[s1.charAt(z1+i)-'a']++;
+            s2n[s2.charAt(z2+n-i-1)-'a']++;
+            if(check(s1n,s2n)){
+                re |= (ff(s1,s2,z1,z2+n-i-1,i+1)&ff(s1,s2,z1+i+1,z2,n-i-1));
+            }
+            if(re){
+                cun[z1][z2][n] = 1;
+                return true;
+            }
+        }
+        cun[z1][z2][n] = -1;
+        return false;
+    }
+
+    public boolean check(int[] a, int[] b){
+        for(int i = 0; i<a.length; i++){
+            if(a[i]!= b[i])return false;
+        }
+        return true;
+    }
+}
