@@ -1,0 +1,18 @@
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int l = 0;
+        int r = 0;
+        int[] num = new int[26];
+        int maxl = 0;
+        while(r<s.length()){
+            num[s.charAt(r)-'A']++;
+            maxl = Math.max(maxl,num[s.charAt(r)-'A']);
+            if(r - l + 1 - maxl > k){
+                num[s.charAt(l)-'A']--;
+                l++;
+            }
+            r++;
+        }
+        return r-l;
+    }
+}
