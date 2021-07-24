@@ -1,0 +1,46 @@
+class Solution {
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        int l1 = 0;
+        int l2 = 0;
+        int r = 0;
+        int n = nums.length;
+        int[] n1 = new int[n+1];
+        int[] n2 = new int[n+1];
+        int c1 = 0;
+        int c2 = 0;
+
+        int re = 0;
+
+        while(r<n){
+           if(n1[nums[r]] == 0){
+               c1++;
+           }
+           n1[nums[r]]++;
+           if(n2[nums[r]] == 0){
+               c2++;
+           }
+           n2[nums[r]]++;
+
+            while(c1 > k){
+                n1[nums[l1]]--;
+                if(n1[nums[l1]] == 0){
+                    c1--;
+                }
+                l1++;
+            }
+            while(c2 > k-1){
+                n2[nums[l2]]--;
+                if(n2[nums[l2]] == 0){
+                    c2--;
+                }
+                l2++;
+            }
+
+            re+=l2-l1;
+
+            r++;
+
+        }
+        return re;
+    }
+}
