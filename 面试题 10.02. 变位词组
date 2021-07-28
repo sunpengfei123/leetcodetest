@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String,List<String>> hm = new HashMap<String,List<String>>();
+        List<List<String>> re = new ArrayList<List<String>>();
+        for(int i = 0; i<strs.length; i++){
+            String s = strs[i];
+            int[] ji = new int[26];
+            StringBuffer sb = new StringBuffer();
+            for(char c: s.toCharArray()){
+                ji[c-'a']++;
+            }
+            for(int j = 0; j<26; j++){
+                sb.append(ji[j]+"*");
+            }
+            List<String> l = hm.getOrDefault(sb.toString(),new ArrayList<String>());
+            l.add(s);
+            hm.put(sb.toString(),l);
+            // if(!hm.containsKey(sb.toString())){
+            //     hm.put(sb.toString(),re.size());
+            //     List<String> l = new ArrayList<String>();
+            //     l.add(s);
+            //     re.add(l);
+            // }else{
+            //     int k = hm.get(sb.toString());
+            //     re.get(k).add(s);
+            // }
+        }
+        for(String s:hm.keySet()){
+            re.add(hm.get(s));
+        }
+        return re;
+    }
+}
