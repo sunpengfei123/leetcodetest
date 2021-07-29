@@ -1,0 +1,30 @@
+class Solution {
+    List<Integer> l = new ArrayList<Integer>();
+    public int getStart(int l){
+        return (int)Math.pow(2,l-1);
+    }
+    public int getEnd(int l){
+        int a = getStart(l);
+        return a+a-1;
+    }
+    public List<Integer> pathInZigZagTree(int label) {
+        int len = 1;
+        while(getEnd(len) < label){
+            len++;
+        }
+        int[] ans = new int[len];
+        int cur = label;
+        int index = len-1;
+        while(index>=0){
+            ans[index] = cur;
+            int loc = (1 << index) - 1 -(cur >> 1);
+            cur = loc + (1 << (index-1));
+            index--;
+        }
+        List<Integer> re = new ArrayList<Integer>();
+        for(int i :ans){
+            re.add(i);
+        }
+        return re;
+    }
+}
