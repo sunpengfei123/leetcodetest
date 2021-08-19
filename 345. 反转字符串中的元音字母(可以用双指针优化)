@@ -1,0 +1,31 @@
+class Solution {
+    public String reverseVowels(String s) {
+        ArrayList<Character> l = new ArrayList<Character>();
+        StringBuffer sb = new StringBuffer();
+        HashSet<Character> hs = new HashSet<Character>();
+        hs.add('a');
+        hs.add('e');
+        hs.add('i');
+        hs.add('o');
+        hs.add('u');
+        hs.add('A');
+        hs.add('E');
+        hs.add('I');
+        hs.add('O');
+        hs.add('U');
+        for(int i = 0; i<s.length(); i++){
+            if(hs.contains(s.charAt(i)))l.add(s.charAt(i));
+        }
+        int k = 0;
+        for(int i = s.length()-1; i>=0; i--){
+            if(hs.contains(s.charAt(i))){
+                sb.append(l.get(k));
+                k++;
+            }else{
+                sb.append(s.charAt(i));
+            }
+        }
+
+        return sb.reverse().toString();
+    }
+}
