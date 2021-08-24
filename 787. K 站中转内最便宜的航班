@@ -1,0 +1,23 @@
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        if(src == dst) return 0;
+        int INF = 10000*101+1;
+        int[] dp = new int[n];
+        Arrays.fill(dp,INF);
+        dp[src] = 0;
+        
+        int re = INF;
+        for(int t = 0; t<=k; t++){
+            int[] g = new int[n];
+            Arrays.fill(g,INF);
+            for(int[] a:flights){
+                int i = a[0], j = a[1], c = a[2];
+                g[j] = Math.min(g[j],dp[i]+c);
+                if(j == dst)re = Math.min(re,g[j]);
+            }
+            dp = g;
+        }
+
+        return re == INF?-1:re;
+    }
+}
