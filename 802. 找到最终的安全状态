@@ -1,0 +1,28 @@
+class Solution {
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        int n = graph.length;
+
+        int[] c = new int[n];
+        List<Integer> re = new ArrayList<Integer>();
+        for(int i = 0; i<n; i++){
+            if(safe(graph,c,i)){
+                re.add(i);
+            }
+        }
+        return re;
+    }
+
+    public boolean safe(int[][] graph, int[] c, int in){
+        if(c[in] > 0){
+            return c[in] == 2;
+        }
+        c[in] = 1;
+        for(int x:graph[in]){
+            if(!safe(graph,c,x)){
+                return false;
+            }
+        }
+        c[in] = 2;
+        return true;
+    }
+}
