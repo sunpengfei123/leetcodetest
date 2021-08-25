@@ -1,0 +1,25 @@
+class Solution {
+    List<List<Integer>> re = new ArrayList<List<Integer>>();
+    List<Integer> l = new ArrayList<Integer>();
+    int[][] g = null;
+    int n = 0;
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        g = graph;
+        n = graph.length;
+        l.add(0);
+        dfs(0);
+        return re;
+    }
+
+    public void dfs(int in){
+        if(in == n-1){
+            re.add(new ArrayList<Integer>(l));
+            return;
+        }
+        for(int i = 0; i<g[in].length; i++){
+            l.add(g[in][i]);
+            dfs(g[in][i]);
+            l.remove(l.size()-1);
+        }
+    }
+}
