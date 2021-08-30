@@ -1,0 +1,25 @@
+class Solution {
+    int[] c = null;
+    public Solution(int[] w) {
+        c = new int[w.length];
+        if(w.length>0)c[0] = w[0];
+        for(int i = 1; i<w.length; i++){
+            c[i] = w[i] + c[i-1];
+        }
+    }
+    
+    public int pickIndex() {
+        Random rand = new Random();
+        int t = rand.nextInt(c[c.length-1])+1;
+        for(int i = 0; i<c.length; i++){
+            if(c[i]>=t) return i;
+        }
+        return 0;
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(w);
+ * int param_1 = obj.pickIndex();
+ */
