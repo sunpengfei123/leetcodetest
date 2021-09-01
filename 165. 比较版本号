@@ -1,0 +1,52 @@
+class Solution {
+    public int compareVersion(String version1, String version2) {
+        String[] v1= version1.split("\\.");
+        String[] v2= version2.split("\\.");
+        int l = Math.min(v1.length,v2.length);
+
+        for(int i = 0; i<l; i++){
+            String s1 = v1[i];
+            String s2 = v2[i];
+            int a = test(s1,s2);
+            if(a != 0){
+                return a;
+            }
+        }
+
+        int t = 0;
+
+        if(v2.length > v1.length){
+            v1 = v2;
+            t = 1;
+        }
+
+        for(int i = l; i<v1.length; i++){
+            String s1 = v1[i];
+            String s2 = "0";
+            int a = test(s1,s2);
+            if(a != 0){
+                return a-t*2;
+            }
+        }
+        return 0;
+
+    }
+
+    public int test(String s1, String s2){
+        // int l1 = 0;
+        // int l2 = 0;
+        // while(l1 < s1.length()-1 && s1.charAt(l1) == '0'){
+        //     l1++;
+        // }
+        // while(l2 < s2.length()-1 && s2.charAt(l2) == '0'){
+        //     l2++;
+        // }
+        // // return 1;
+        // int a1 = Integer.valueOf(s1.substring(l1,s1.length()));
+        int a1 = Integer.valueOf(s1);
+        int a2 = Integer.valueOf(s2);
+        if(a1 == a2)return 0;
+        if(a1 > a2) return 1;
+        return -1;
+    }
+}
